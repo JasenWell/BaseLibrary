@@ -55,7 +55,8 @@ dependencies {
 
 
     //add by hjh
-    implementation project(path: ':mbaselibs')
+    implementation 'com.github.JasenWell:BaseLibrary:1.0.0'
+//    implementation project(path: ':mbaselibs')
     api 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 }
