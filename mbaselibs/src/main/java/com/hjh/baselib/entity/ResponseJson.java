@@ -24,7 +24,7 @@ public final class ResponseJson<T> implements Serializable {
 	private int status;
 	
 	@Expose
-	@SerializedName("message")
+	@SerializedName(value = "msg",alternate = {"message"})
 	private String msg;
 	
 	@Expose
