@@ -392,15 +392,39 @@ public abstract class LBaseActivity extends AppCompatActivity implements BasicVi
                     break;
                 }
             }
-            if (flag) {
-                Toast.makeText(this, "已授权", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+
+            if(showPermissionsResult(flag)) {
+                if (flag) {
+                    Toast.makeText(this, "已授权", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                onResponsePermissionsResult(flag);
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+    /**
+     * 是否需要子类处理提示等，默认不需要
+     * @param result
+     * @return
+     */
+    public boolean showPermissionsResult(boolean result){
+        return true;
+    }
+
+    /**
+     * 返回权限结果
+     * @param result true为授权
+     * @return
+     */
+    public void onResponsePermissionsResult(boolean result){
+
+    }
+
     @Deprecated
     private synchronized void resetAppTypeFace(View view){
         if(view instanceof ViewGroup){
