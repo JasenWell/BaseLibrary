@@ -1,11 +1,8 @@
-package com.git.jasenwell.appcoat1.holder;
+package com.hjh.baselib.holder;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public abstract class AbstractHolder {
 

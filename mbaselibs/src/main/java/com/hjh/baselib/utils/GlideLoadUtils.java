@@ -1,4 +1,4 @@
-package com.git.jasenwell.goldmall.utils;
+package com.hjh.baselib.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,13 +12,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.git.jasenwell.goldmall.R;
 import java.io.File;
 
 
 
 public class GlideLoadUtils {
     private String TAG = "GlideLoadUtils";
+    private int emptyResId;
+    private int defaultPhotoResId;
+    private int defaultHeadResId;
 
     /**
      * 借助内部类 实现线程安全的单例模式
@@ -37,17 +39,41 @@ public class GlideLoadUtils {
         return GlideLoadUtilsHolder.INSTANCE;
     }
 
-    public int getDefaultPhoto(){
-        return R.mipmap.icon_empty_photo;
+    public int getDefaultHeadResId() {
+        return defaultHeadResId;
     }
 
-    public int getDefaultProductImage(){
-        return R.mipmap.icon_empty_photo;
+    public int getDefaultPhotoResId() {
+        return defaultPhotoResId;
+    }
+
+    public int getEmptyResId() {
+        return emptyResId;
+    }
+
+    public void setDefaultHeadResId(int defaultHeadResId) {
+        this.defaultHeadResId = defaultHeadResId;
+    }
+
+    public void setDefaultPhotoResId(int defaultPhotoResId) {
+        this.defaultPhotoResId = defaultPhotoResId;
+    }
+
+    public void setEmptyResId(int emptyResId) {
+        this.emptyResId = emptyResId;
     }
 
     public void glideLoadFromLocal(Context context, String path, ImageView imageView, int default_image){
         if (context != null) {
             Glide.with(context).load(new File(path)).apply(new RequestOptions().error(default_image).diskCacheStrategy(DiskCacheStrategy.ALL)).into(imageView);
+        } else {
+            Log.i(TAG, "Picture loading failed,context is null");
+        }
+    }
+
+    public void glideLoadFromLocal(Context context, int resId, ImageView imageView, int default_image){
+        if (context != null) {
+            Glide.with(context).load(resId).apply(new RequestOptions().error(default_image).diskCacheStrategy(DiskCacheStrategy.ALL)).into(imageView);
         } else {
             Log.i(TAG, "Picture loading failed,context is null");
         }
@@ -92,7 +118,7 @@ public class GlideLoadUtils {
 
     public void glideLoadCircle(Context context, String url, ImageView imageView) {
         if (context != null) {
-            Glide.with(context).load(url).apply(new RequestOptions().error(R.mipmap.defualt_head).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop()).into(imageView);
+            Glide.with(context).load(url).apply(new RequestOptions().error(defaultHeadResId).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop()).into(imageView);
         } else {
             Log.i(TAG, "Picture loading failed,context is null");
         }
